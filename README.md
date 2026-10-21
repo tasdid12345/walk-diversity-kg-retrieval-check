@@ -23,6 +23,26 @@ Results are written to results.json (and figures/hit_rate.png).
 
 Results are written to `results.json`.
 
+## Results (latest run)
+
+On FB15k-237 two-hop questions (500 test questions), a standard uniform random-walk sampler with 60 walks per node and duplicates kept reached an 18.9% supporting-fact hit rate, while my diversity-aware sampler reached 23.3%, a modest 4.5-point gain that may be noise.
+
+| Metric | Value |
+|---|---|
+| baseline_score | 0.1887 |
+| improved_score | 0.2333 |
+| improvement | 0.04467 |
+| baseline_score_std | 0.008083 |
+| improved_score_std | 0.01361 |
+| baseline_unique_walks_per_node | 17.59 |
+| improved_unique_walks_per_node | 19.71 |
+| baseline_distinct_triples | 39.12 |
+| improved_distinct_triples | 49.35 |
+
+Run on 2026-10-21. Full output: [results.json](results.json) · [run.log](run.log)
+
+Notes: Walks are generated from the full train graph, which contains the gold triples, so the hit rate measures retrieval coverage rather than generalisation. The train pool of questions is not used for fitting because neither method has learned parameters or tuned hyper-parameters. The LLM verbalisation step of the paper is omitted. Std uses ddof=1 over 3 seeds. Only 500 test questions, so differences of a few points may be noise.
+
 ## Reference
 
 This project is motivated by the following paper:
