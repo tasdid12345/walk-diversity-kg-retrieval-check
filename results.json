@@ -1,0 +1,29 @@
+{
+  "question": "Can a diversity-aware walk sampler that avoids duplicate walks cover the supporting facts of two-hop questions better than the paper's plain random-walk sampler under the same retrieval budget on a public knowledge graph?",
+  "method": "Two-hop KG questions sampled as paths from FB15k-237 train; retrieval of K=20 walks per question; supporting-fact hit rate on a fixed 500-question test set; 3 seeds.",
+  "dataset": {
+    "name": "FB15k-237 (train split)",
+    "source_url": "https://raw.githubusercontent.com/villmow/datasets_knowledge_embedding/master/FB15k-237/train.txt",
+    "n_rows": 272115,
+    "n_train": 2000,
+    "n_test": 500,
+    "same_as_paper": false,
+    "baseline_is_papers_method": false
+  },
+  "metric_name": "supporting-fact hit rate (both gold triples retrieved)",
+  "higher_is_better": true,
+  "baseline": "Uniform random-walk sampler, 60 walks per start node, duplicates kept, first K=20 walks used.",
+  "improved": "Same walk budget K=20, non-backtracking walks, duplicates removed, and greedy selection of walks that add the most unseen triples.",
+  "metrics": {
+    "baseline_score": 0.18866666666666668,
+    "improved_score": 0.2333333333333333,
+    "improvement": 0.04466666666666663,
+    "baseline_score_std": 0.008082903768654767,
+    "improved_score_std": 0.013613718571108088,
+    "baseline_unique_walks_per_node": 17.588,
+    "improved_unique_walks_per_node": 19.712666666666667,
+    "baseline_distinct_triples": 39.11866666666666,
+    "improved_distinct_triples": 49.346000000000004
+  },
+  "notes": "Walks are generated from the full train graph, which contains the gold triples, so the hit rate measures retrieval coverage rather than generalisation. The train pool of questions is not used for fitting because neither method has learned parameters or tuned hyper-parameters. The LLM verbalisation step of the paper is omitted. Std uses ddof=1 over 3 seeds. Only 500 test questions, so differences of a few points may be noise."
+}
